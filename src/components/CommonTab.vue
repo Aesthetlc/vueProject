@@ -7,6 +7,7 @@
       :disable-transitions="false"
       @close="handleClose(tag)"
       @click="clickTag(tag)"
+      :effect="$route.name === tag.name ? 'dark' : 'plain'"
     >
       {{ tag.label }}
     </el-tag>
@@ -45,19 +46,8 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-.el-tag + .el-tag {
-  margin-left: 10px;
-}
-.button-new-tag {
-  margin-left: 10px;
-  height: 32px;
-  line-height: 30px;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-.input-new-tag {
-  width: 90px;
-  margin-left: 10px;
-  vertical-align: bottom;
+.el-tag {
+  cursor: pointer;
+  margin-right: 15px;
 }
 </style>

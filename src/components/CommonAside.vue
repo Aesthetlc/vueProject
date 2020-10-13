@@ -2,7 +2,7 @@
   <el-menu
     default-active="2"
     class="el-menu-vertical-demo"
-    background-color="#33aef0"
+    background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b"
   >
