@@ -5,7 +5,7 @@
         size="mini"
         type="primary"
         icon="el-icon-menu"
-        @click="changeCollapse"
+        @click="clickCollapse"
       ></el-button>
       <div class="breadcrumb">
         <el-breadcrumb separator-class="el-icon-arrow-right">
@@ -41,11 +41,9 @@ export default {
     };
   },
   methods: {
-    ...mapMutations({
-      navCollapse: "changeCollapse",
-    }),
-    changeCollapse() {
-      this.navCollapse();
+    ...mapMutations(['changeCollapse']),
+    clickCollapse() {
+      this.changeCollapse();
     },
   },
   computed: {
