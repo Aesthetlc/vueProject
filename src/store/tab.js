@@ -4,17 +4,18 @@ export default {
     isCollapse: false,
     //当前的所在页
     currentMenu: null,
-    tabsList: [
-      {
-        path: "/",
-        name: "home",
-        label: "首页",
-        icon: "home"
-      }
-    ]
+    tabsList: [{
+      path: "/",
+      name: "home",
+      label: "首页",
+      icon: "home"
+    }]
   },
   //调用方法
   mutations: {
+    changeCollapse(state, val) {
+      state.isCollapse = !state.isCollapse
+    },
     //选择标签 选择面包屑
     selectMenu(state, val) {
       if (val.name === "home") {
@@ -30,8 +31,8 @@ export default {
     },
     //关闭标签
     closeTab(state, val) {
-       let delFlag =  state.tabsList.findIndex(item => item.name === val.name)
-       state.tabsList.splice(delFlag,1)
+      let delFlag = state.tabsList.findIndex(item => item.name === val.name)
+      state.tabsList.splice(delFlag, 1)
     }
   },
   actions: {}

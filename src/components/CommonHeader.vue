@@ -1,7 +1,12 @@
 <template>
   <header class="header">
     <div class="l-content">
-      <el-button size="mini" type="primary" icon="el-icon-menu"></el-button>
+      <el-button
+        size="mini"
+        type="primary"
+        icon="el-icon-menu"
+        @click="changeCollapse"
+      ></el-button>
       <div class="breadcrumb">
         <el-breadcrumb separator-class="el-icon-arrow-right">
           <!--很明显 首页 一定是存在的 所以这里直接写死-->
@@ -28,18 +33,26 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      userImg: require("./../assets/images/userdefault.png")
+      userImg: require("./../assets/images/userdefault.png"),
     };
+  },
+  methods: {
+    ...mapMutations({
+      navCollapse: "changeCollapse",
+    }),
+    changeCollapse() {
+      this.navCollapse();
+    },
   },
   computed: {
     ...mapState({
-      current: state => state.tab.currentMenu
-    })
-  }
+      current: (state) => state.tab.currentMenu,
+    }),
+  },
 };
 </script>
 <style lang="less" scoped>
