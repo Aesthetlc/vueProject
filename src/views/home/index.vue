@@ -115,7 +115,7 @@ export default {
   }
 };
 </script>
-<style lang="less">
+<style lang="less" scoped>
 .userMes {
   display: flex;
   justify-content: space-between;
@@ -151,7 +151,7 @@ export default {
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
-  .iconDetailMes .el-card__body {
+  .iconDetailMes /deep/ .el-card__body {
     display: flex;
     height: 60px;
     padding: 0px;
