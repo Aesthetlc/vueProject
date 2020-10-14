@@ -1,4 +1,5 @@
 <template>
+  <!-- collapse 控制aside是否展开 -->
   <el-menu
     default-active="2"
     class="el-menu-vertical-demo"
