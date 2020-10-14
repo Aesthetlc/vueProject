@@ -5,6 +5,7 @@
     background-color="#545c64"
     text-color="#fff"
     active-text-color="#ffd04b"
+    :collapse="collapse"
   >
     <el-menu-item
       :index="item.path"
@@ -39,6 +40,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
@@ -47,19 +49,19 @@ export default {
           path: "/",
           name: "home",
           label: "首页",
-          icon: "s-home"
+          icon: "s-home",
         },
         {
           path: "/video",
           name: "video",
           label: "视频管理",
-          icon: "video-play"
+          icon: "video-play",
         },
         {
           path: "/user",
           name: "user",
           label: "用户管理",
-          icon: "user"
+          icon: "user",
         },
         {
           path: "/other",
@@ -70,39 +72,46 @@ export default {
               path: "/page1",
               label: "子集页面1",
               name: "page1",
-              icon: "setting"
+              icon: "setting",
             },
             {
               path: "/page2",
               name: "page2",
               label: "子集页面2",
-              icon: "setting"
-            }
-          ]
-        }
-      ]
+              icon: "setting",
+            },
+          ],
+        },
+      ],
     };
   },
   computed: {
     noChildren() {
-      return this.asideMenu.filter(item => !item.children);
+      return this.asideMenu.filter((item) => !item.children);
     },
     hasChildren() {
-      return this.asideMenu.filter(item => item.children);
-    }
+      return this.asideMenu.filter((item) => item.children);
+    },
+    ...mapState({
+      collapse: (state) => state.tab.isCollapse,
+    }),
   },
   methods: {
     //跳转路由 根据名称跳转
     clickMenu(item) {
       this.$store.commit("selectMenu", item);
       this.$router.push({ name: item.name });
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="less">
 .el-menu {
   height: 100%;
   border: none;
+}
+.el-menu-vertical-demo:not(.el-menu--collapse) {
+  width: 200px;
+  min-height: 400px;
 }
 </style>
