@@ -3,7 +3,7 @@
     <div class="l-content">
       <el-button
         size="mini"
-        type="primary"
+        plain
         icon="el-icon-menu"
         @click="clickCollapse"
       ></el-button>
