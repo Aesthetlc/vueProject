@@ -6,13 +6,11 @@
         <el-button type="primary">搜索</el-button>
       </common-form>
     </div>
-    <div class="manage-content">
-      <common-table
-        :config="config"
-        :tableLabel="tableLabel"
-        :tableData="tableData"
-      ></common-table>
-    </div>
+    <common-table
+      :config="config"
+      :tableLabel="tableLabel"
+      :tableData="tableData"
+    ></common-table>
   </div>
 </template>
 
@@ -94,12 +92,12 @@ export default {
 <style lang="less" scoped>
 .manage {
   height: 90%;
-  padding: 20px;
+  padding-bottom: 20px;
   overflow: hidden;
   .manage-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
   }
 }
 </style>
