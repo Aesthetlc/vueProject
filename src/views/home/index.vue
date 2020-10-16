@@ -50,18 +50,39 @@
             </div>
           </el-card>
         </div>
-      </el-card></el-col
-    >
+      </el-card>
+      <el-card shadow="hover">
+        <echart style="height:250px" :chartData="echartData.order"></echart>
+      </el-card>
+      <div style="display:flex">
+        <el-card shadow="hover" style="width:49%">
+          <echart
+            style="height:200px"
+            :chartData="echartData.userData"
+          ></echart>
+        </el-card>
+        <el-card shadow="hover" style="width:49%">
+          <echart
+            :isAxisChart="false"
+            :chartData="echartData.video"
+            style="height:200px;"
+          ></echart>
+        </el-card>
+      </div>
+    </el-col>
   </el-row>
 </template>
 
 <script>
+import Echart from "../../components/Echart";
 export default {
   data() {
     return {
       userImg: require("./../../assets/images/userdefault.png"),
       //table 数据
       tableData: [],
+      //折线图数据
+      orderData: [],
       tableTitle: {
         name: "名称",
         todayBuy: "今日购买",
@@ -105,14 +126,76 @@ export default {
           icon: "s-goods",
           color: "#5ab1ef"
         }
-      ]
+      ],
+      echartData: {
+        order: {
+          xData: [],
+          series: []
+        },
+        userData: {
+          xData: [],
+          series: []
+        },
+        video: {
+          series: []
+        }
+      }
     };
   },
-  mounted() {
+  components: {
+    Echart
+  },
+  created() {
     this.$http.get("/home/getData").then(res => {
-      this.tableData = res.data.data.tableData;
+      res = res.data;
+      this.tableData = res.data.tableData;
+      //折线图
+      const order = res.data.orderData;
+      //xData
+      this.echartData.order.xData = order.date;
+      //series
+      let keyArray = Object.keys(order.data[0]);
+      keyArray.forEach(key => {
+        this.echartData.order.series.push({
+          name: key,
+          data: order.data.map(item => item[key]),
+          type: "line"
+        });
+      });
+
+      //柱状图
+      const histogram = res.data.userData;
+      console.log(histogram);
+      //xData
+      this.echartData.userData.xData = histogram.map(item => item.date);
+      //series
+      const newArr = [];
+      const activeArr = [];
+      histogram.forEach(item => {
+        newArr.push(item.new);
+        activeArr.push(item.active);
+      });
+      this.echartData.userData.series.push({
+        name: "新增用户",
+        data: newArr,
+        type: "bar"
+      });
+      this.echartData.userData.series.push({
+        name: "活跃用户",
+        data: activeArr,
+        type: "bar"
+      });
+      // 视频饼图
+      this.echartData.video.series.push({
+        data: res.data.videoData,
+        type: "pie"
+      });
     });
-  }
+  },
+  mounted() {
+    //折线图
+  },
+  methods: {}
 };
 </script>
 <style lang="less" scoped>
