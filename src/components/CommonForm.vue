@@ -1,7 +1,11 @@
 <template>
   <div>
     <el-form :inline="inline" ref="form" :model="form" label-width="100px">
-      <el-form-item v-for="item in formLabel" :key="item.model">
+      <el-form-item
+        v-for="item in formLabel"
+        :key="item.model"
+        :label="item.label"
+      >
         <el-input
           v-model="form[item.model]"
           :placeholder="'请输入' + item.label"
@@ -16,12 +20,19 @@
             v-for="item in item.opts"
             :key="item.value"
             :label="item.label"
+            :value="item.value"
           ></el-option>
         </el-select>
         <el-switch
           v-model="form[item.model]"
           v-if="item.type === 'switch'"
         ></el-switch>
+        <el-date-picker
+          v-model="form[item.model]"
+          v-if="item.type === 'date'"
+          type="date"
+          placeholder="选择日期"
+        ></el-date-picker>
       </el-form-item>
       <el-form-item>
         <slot></slot>
@@ -35,8 +46,8 @@ export default {
   props: {
     inline: Boolean,
     form: Object,
-    formLabel: Array
-  }
+    formLabel: Array,
+  },
 };
 </script>
 <style></style>

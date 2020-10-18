@@ -1,10 +1,10 @@
 <template>
   <div class="common-table">
-    <el-table :data="tableData" height="90%" stripe>
+    <el-table :data="tableData" height="90%" stripe v-loading="config.loading">
       <el-table-column label="序号" width="80">
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{
-            (config.page - 1) * 20 + scope.$index
+            (config.page - 1) * 20 + scope.$index + 1
           }}</span>
         </template>
       </el-table-column>
@@ -13,6 +13,7 @@
         v-for="item in tableLabel"
         :key="item.prop"
         :label="item.label"
+        :width="item.width ? item.width : '120px'"
       >
         <template slot-scope="scope">
           <span style="margin-left: 10px">{{ scope.row[item.prop] }}</span>
@@ -37,35 +38,38 @@
       layout="prev,pager,next"
       :current-page.sync="config.page"
       :total="config.total"
+      @current-change="changePage"
     ></el-pagination>
   </div>
 </template>
 
 <script>
-import { createLogger } from "vuex";
 export default {
   props: {
     tableData: {
       type: Array,
-      default: []
+      default: [],
     },
     tableLabel: {
       type: Array,
-      default: []
+      default: [],
     },
     config: {
       type: Object,
-      default: {}
-    }
+      default: {},
+    },
   },
   methods: {
+    changePage(page) {
+      this.$emit("changePage", page);
+    },
     handleEdit(index, row) {
-      console.log(index, row);
+      this.$emit("edit", row);
     },
     handleDelete(index, row) {
-      console.log(index, row);
-    }
-  }
+      this.$emit("del", row, index);
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
