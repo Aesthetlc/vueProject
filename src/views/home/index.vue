@@ -165,7 +165,6 @@ export default {
 
       //柱状图
       const histogram = res.data.userData;
-      console.log(histogram);
       //xData
       this.echartData.userData.xData = histogram.map(item => item.date);
       //series

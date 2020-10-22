@@ -48,16 +48,16 @@ export default {
   props: {
     tableData: {
       type: Array,
-      default: [],
+      default: []
     },
     tableLabel: {
       type: Array,
-      default: [],
+      default: []
     },
     config: {
       type: Object,
-      default: {},
-    },
+      default: {}
+    }
   },
   methods: {
     changePage(page) {
@@ -68,8 +68,8 @@ export default {
     },
     handleDelete(index, row) {
       this.$emit("del", row, index);
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="less" scoped>

@@ -35,7 +35,7 @@ import CommonForm from "../../components/CommonForm";
 export default {
   components: {
     CommonTable,
-    CommonForm,
+    CommonForm
   },
   data() {
     return {
@@ -46,12 +46,12 @@ export default {
         age: "",
         birth: "",
         addr: "",
-        sex: 1,
+        sex: 1
       },
       editLabel: [
         {
           model: "name",
-          label: "姓名",
+          label: "姓名"
         },
         {
           model: "sex",
@@ -60,71 +60,71 @@ export default {
           opts: [
             {
               value: 1,
-              label: "男",
+              label: "男"
             },
             {
               value: 0,
-              label: "女",
-            },
-          ],
+              label: "女"
+            }
+          ]
         },
         {
           model: "age",
-          label: "年龄",
+          label: "年龄"
         },
         {
           model: "birth",
           label: "出生日期",
-          type: "date",
+          type: "date"
         },
         {
           model: "addr",
-          label: "地址",
-        },
+          label: "地址"
+        }
       ],
       searchForm: {
-        keyWord: "",
+        keyWord: ""
       },
       formLabel: [
         {
           model: "keyWord",
           label: "",
-          opts: [],
-        },
+          opts: []
+        }
       ],
       tableData: [],
       tableLabel: [
         {
           prop: "name",
           label: "姓名",
-          width: "auto",
+          width: "auto"
         },
         {
           prop: "age",
           label: "年龄",
-          width: "auto",
+          width: "auto"
         },
         {
           prop: "sexLabel",
           label: "性别",
-          width: "auto",
+          width: "auto"
         },
         {
           prop: "birth",
           label: "出生日期",
-          width: "200px",
+          width: "auto"
         },
         {
           prop: "addr",
           label: "地址",
-          width: "320px",
-        },
+          width: "auto"
+        }
       ],
       config: {
         page: 1,
         total: 30,
-        loading: false,
-      },
+        loading: false
+      }
     };
   },
   mounted() {
@@ -136,11 +136,11 @@ export default {
       this.$http
         .get("/api/user/getUser", {
           parmas: {
-            page: this.config.page,
-          },
+            page: this.config.page
+          }
         })
-        .then((res) => {
-          this.tableData = res.data.list.map((item) => {
+        .then(res => {
+          this.tableData = res.data.list.map(item => {
             item.sexLabel = item.sex === 0 ? "女" : "男";
             return item;
           });
@@ -157,20 +157,20 @@ export default {
       this.$confirm("此操作将永久删除该信息, 是否继续?", "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
-        type: "warning",
+        type: "warning"
       })
         .then(() => {
           console.log(index);
           this.$http
             .get("/api/user/del", {
               params: {
-                id: row.id,
-              },
+                id: row.id
+              }
             })
-            .then((res) => {
+            .then(res => {
               this.$message({
                 type: "success",
-                message: "删除成功!",
+                message: "删除成功!"
               });
               this.tableData.splice(index, 1);
               // this.getList()
@@ -179,24 +179,24 @@ export default {
         .catch(() => {
           this.$message({
             type: "info",
-            message: "已取消删除",
+            message: "已取消删除"
           });
         });
     },
     handleClose(done) {
       this.$confirm("确认关闭？")
-        .then((_) => {
+        .then(_ => {
           done();
         })
-        .catch((_) => {});
+        .catch(_ => {});
     },
     updateUserMes() {
-      this.$http.post("/api/user/edit", this.editForm).then((res) => {
+      this.$http.post("/api/user/edit", this.editForm).then(res => {
         console.log(res);
         this.dialogVisible = false;
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style lang="less" scoped>

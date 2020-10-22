@@ -9,7 +9,7 @@
     :collapse="collapse"
   >
     <h3 v-show="!collapse">后台系统</h3>
-     <h3 v-show="collapse">系统</h3>
+    <h3 v-show="collapse">系统</h3>
     <el-menu-item
       :index="item.path"
       :key="item.path"
@@ -21,22 +21,24 @@
     </el-menu-item>
 
     <el-submenu
-      :index="item.path"
+      :index="item.label"
       :key="index"
       v-for="(item, index) in hasChildren"
     >
       <template slot="title">
-        <em class="el-icon-location"></em>
-        <span>{{ item.label }}</span>
+        <em :class="'el-icon-' + item.icon"></em>
+        <span slot="title">{{ item.label }}</span>
       </template>
       <el-menu-item-group>
         <el-menu-item
           :index="subItem.path"
-          v-for="(subItem, index) in item.children"
-          :key="index"
+          v-for="(subItem, subIndex) in item.children"
+          :key="subIndex"
           @click="clickMenu(subItem)"
-          >{{ subItem.label }}</el-menu-item
         >
+          <em :class="'el-icon-' + subItem.icon"></em>
+          <span slot="title">{{ subItem.label }}</span>
+        </el-menu-item>
       </el-menu-item-group>
     </el-submenu>
   </el-menu>
@@ -90,14 +92,17 @@ export default {
   },
   computed: {
     noChildren() {
-      return this.asideMenu.filter(item => !item.children);
+      return this.menu.filter(item => !item.children);
     },
     hasChildren() {
-      return this.asideMenu.filter(item => item.children);
+      return this.menu.filter(item => item.children);
     },
     ...mapState({
       collapse: state => state.tab.isCollapse
-    })
+    }),
+    menu() {
+      return this.$store.state.tab.menu;
+    }
   },
   methods: {
     //跳转路由 根据名称跳转
@@ -113,7 +118,7 @@ export default {
   height: 100%;
   border: none;
   h3 {
-    color: #FFF;
+    color: #fff;
     text-align: center;
     line-height: 48px;
     font-size: 16px;

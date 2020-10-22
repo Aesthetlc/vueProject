@@ -61,15 +61,18 @@ export default {
           data: [],
           axisLine: {
             lineStyle: {
-              color: "#17b3a3"
+              // color: "#17b3a3"   //坐标轴的颜色
             }
+          },
+          axisLabel: {
+            color: "#333"
           }
         },
         yAxis: {
           type: "value",
           axisLine: {
             lineStyle: {
-              color: "#17b3a3"
+              // color: "#17b3a3"    //坐标轴的颜色
             }
           },
           axisLabel: {
