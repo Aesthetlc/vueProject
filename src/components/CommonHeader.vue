@@ -25,7 +25,7 @@
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item>个人中心</el-dropdown-item>
-          <el-dropdown-item>退出</el-dropdown-item>
+          <el-dropdown-item @click.native="logout">退出</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
@@ -37,20 +37,25 @@ import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      userImg: require("./../assets/images/userdefault.png"),
+      userImg: require("./../assets/images/userdefault.png")
     };
   },
   methods: {
-    ...mapMutations(['changeCollapse']),
+    ...mapMutations(["changeCollapse", "clearToken","clearMenu"]),
     clickCollapse() {
       this.changeCollapse();
     },
+    logout() {
+      this.clearToken();
+      this.clearMenu();
+      location.reload();
+    }
   },
   computed: {
     ...mapState({
-      current: (state) => state.tab.currentMenu,
-    }),
-  },
+      current: state => state.tab.currentMenu
+    })
+  }
 };
 </script>
 <style lang="less" scoped>

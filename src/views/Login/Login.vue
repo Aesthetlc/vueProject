@@ -67,7 +67,7 @@ export default {
           //再加入
           this.$store.commit("setMenu", res.data.menu);
           //放入token
-          // this.$store.commit("setToken", res.data.token);
+          this.$store.commit("setToken", res.data.token);
           //添加动态路由
           this.$store.commit("addMenu", this.$router);
           //跳转到首页
